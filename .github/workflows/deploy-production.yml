@@ -3,6 +3,7 @@ name: Deploy Production
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 # IMPORTANT:
 # Protect the "production" environment in:
@@ -12,6 +13,10 @@ on:
 #   - Deployment branches restricted to `main`
 # This prevents accidental or unauthorized production deploys.
 
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
 jobs:
   deploy:
     name: Deploy to Vercel (Production)
@@ -20,10 +25,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 20
           cache: 'npm'
