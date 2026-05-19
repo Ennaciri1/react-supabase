@@ -34,4 +34,3 @@ coverage
 
 # Supabase CLI local
 .supabase
-.env*.local
